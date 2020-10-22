@@ -20,7 +20,7 @@ rule_4 = 'allow 203.222.201.0 172.160.2.0 53'
 packet_want = 200
 
 # name of files saved
-csv_text = "Data_text" # place the name of csv text here
+csv_text = "Data_Text" # place the name of csv text here
 csv_file_text = "%s.csv" % csv_text
 
 csv_bin = "Data_Binary" # place the name of csv binary here
