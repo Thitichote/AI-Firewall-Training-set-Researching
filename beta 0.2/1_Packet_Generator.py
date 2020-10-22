@@ -17,7 +17,7 @@ rule_3 = 'allow 172.160.2.0 192.168.1.0 23'
 rule_4 = 'allow 203.222.201.0 172.160.2.0 53'
 
 # packet we want to generate
-packet_want = 200
+packet_want = 1200
 
 # name of files saved
 csv_text = "Data_Text" # place the name of csv text here
@@ -33,7 +33,7 @@ ip_pool = ["192.168.1", "172.160.2", "203.222.201"]
 mask = '255.255.255.0'
 
 # port pool based on well known port (10)
-port_pool = ['21', '22' ,'23', '25', '53']
+port_pool = ['21', '22' ,'23', '25', '53', '80']
 port_pool_notused = ['21', '22' , '23', '25', '53', '80', '110', '143', '161', '443']
 
 # add on what protocol of packet's port
@@ -69,7 +69,7 @@ def packet_generator():
 
     for n_packet in range(packet_want):
         """random packet from the pool"""
-        time.sleep(0.2) #beware error
+        #time.sleep(0.2) #beware error
         print(".................. G E N E R A T I N G ...................")
 
         # this is list of 1 packet without decision

@@ -11,7 +11,7 @@ Created on Tue Sep 30 19:30:27 2020
 
 # File Configuration
 
-csv_file_input = "Book1" # place the name of data here
+csv_file_input = "Data_Binary" # place the name of data here
 csv_file_use = "%s.csv" % csv_file_input
 
 name_model = "model_test" # place the name of model here
