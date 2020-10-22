@@ -69,7 +69,7 @@ model.summary()
 
 score, acc = model.evaluate(train_x, train_y)
 
-print("Training time:", str(time_duration) + " seconds")
+print("Training time:", str(time_duration) + " Seconds")
 print('Train score:', score)
 print('Train accuracy:', acc)
 
