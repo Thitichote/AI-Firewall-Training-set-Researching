@@ -14,10 +14,10 @@ Created on Thu Oct 22 11:02:27 2020
 rule_1 = 'allow 192.168.1.0 203.222.201.0 25'
 rule_2 = 'allow 192.168.1.0 203.222.201.0 21'
 rule_3 = 'allow 172.160.2.0 192.168.1.0 23'
-# rule_4 = ''
+rule_4 = 'allow 203.222.201.0 172.160.2.0 53'
 
 # packet we want to generate
-packet_want = 100
+packet_want = 200
 
 # name of files saved
 csv_text = "Data_text" # place the name of csv text here
@@ -65,10 +65,11 @@ def packet_generator():
     print("Rule 1:", firewall_filter(rule_1))
     print("Rule 2:", firewall_filter(rule_2)) # -- > show firewall rule here
     print("Rule 3:", firewall_filter(rule_3))
+    print("Rule 3:", firewall_filter(rule_4))
 
     for n_packet in range(packet_want):
         """random packet from the pool"""
-        time.sleep(0.4) #beware error
+        time.sleep(0.2) #beware error
         print(".................. G E N E R A T I N G ...................")
 
         # this is list of 1 packet without decision
@@ -88,10 +89,10 @@ def packet_generator():
 
         # insert to big list of many packets
         full_data.append(packet_data)
-        
-        """Finish process of creating 1 packet"""
 
-    """Export to CSV"""
+        """ Finish process of creating 1 packet """
+
+    """ Export to CSV """
     print("Exporting", csv_file_text ,". . . . . . .")
     writing_csv_plain() # this file is plain text
     print("Done!")
@@ -102,13 +103,13 @@ def packet_generator():
 
     time_finish = time.time()
     time_duration = time_finish - time_begin
-    print("Worked has finish:", time_duration, "Seconds")
+    print("Time created:", time_duration, "Seconds")
     print("Time per packet:", time_duration/packet_want, "Seconds")
 
     #-------------------------------------------------------------------#
 
 def generate_packet_in_list():
-    """return [192.168.1.x, 192.168.2.x, port, protocol --> raw_data"""
+    """ return [192.168.1.x, 192.168.2.x, port, protocol --> raw_data """
 
     ip_random_src = random.choice(ip_pool) + "." + str(random.randint(1, 254))
     ip_random_dst = random.choice(ip_pool) + "." + str(random.randint(1, 254))
@@ -122,7 +123,7 @@ def generate_packet_in_list():
     return [ip_random_src, ip_random_dst, port_random, protocol]
 
 def packet_action(raw_data):
-    """This Function will have rule decide the packet"""
+    """ This Function will have rule decide the packet """
 
     if decide_decision(raw_data, firewall_filter(rule_1)) == 'allow':
         return 'allow'
@@ -130,11 +131,13 @@ def packet_action(raw_data):
         return 'allow'
     elif decide_decision(raw_data, firewall_filter(rule_3)) == 'allow':
         return 'allow'
+    elif decide_decision(raw_data, firewall_filter(rule_4)) == 'allow':
+        return 'allow'
 
     return 'deny'
 
 def writing_csv_plain():
-    """This Function write from full data text to CSV text"""
+    """ This Function write from full data text to CSV text """
     with open(csv_file_text, 'w', newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
 
@@ -142,7 +145,7 @@ def writing_csv_plain():
             wr.writerow(full_data[i]) # write
 
 def writing_csv_binary():
-    """This Function write from full data text to CSV binary"""
+    """ This Function write from full data text to CSV binary """
 
     convert_bin() # convert full_data to full_data_bin with binary
 
@@ -153,14 +156,14 @@ def writing_csv_binary():
             wr.writerow(full_data_bin[i]) # write
 
 def convert_bin():
-    """Main Function to convert full of packets to binary csv"""
+    """ Main Function to convert full of packets to binary CSV """
 
     for i in range(len(full_data)):
 
         # create temp list for temporary storage value
         temp_bin = []
 
-        """Only Decision not exist in function so we do here"""
+        """ Only Decision not exist in function so we do here """
 
         if full_data[i][0] == 'allow':
             temp_bin.append('1') # 1 = allow
@@ -178,10 +181,10 @@ def convert_bin():
         full_data_bin.append(temp_bin)
 
 
-"""these Function below here is data preprocessing"""
+""" These Function below here is data preprocessing """
 
 def firewall_filter(firewall_rule):
-    """This Function change firewall rule to what we can calculate in list"""
+    """ This Function change firewall rule to what we can calculate in list """
 
     # do spilt text of command
     action, src, dst, port = firewall_rule.split(" ")
@@ -209,7 +212,7 @@ def firewall_filter(firewall_rule):
     return [action, src, dst, port]
 
 def decide_decision(raw_data, checker):
-    """"This Function will reduce the number of line to use for filtering"""
+    """ This Function will reduce the number of line to use for filtering """
 
     # same subnet can allow?
     if subnet_only(raw_data[0]) == subnet_only(raw_data[1]):
@@ -222,16 +225,16 @@ def decide_decision(raw_data, checker):
     return 'deny'
 
 def subnet_only(ip):
-    """This Function change from full ip to only subnet mask 24 without last 0"""
-    """Example 192.168.1.254(input) --> 192.168.1(output) """
+    """ This Function change from full ip to only subnet mask 24 without last 0 """
+    """ Example 192.168.1.254(input) --> 192.168.1(output) """
 
     for i in range(4): # the last digit can't go beyond 3
         if ip[::-1][i] == '.': # count from the last
             return ip[0:-(i+1)]
 
 def ip_to_binary(data):
-    """This Function can convert binary of IP and Mask specific"""
-    """because IP is not INT but STR so we need to split --> . <--"""
+    """ This Function can convert binary of IP and Mask specific """
+    """ because IP is not INT but STR so we need to split --> . <-- """
     """ 192.168.1.254(input) --> binary 32 bits(output) """
 
     # need empty variable to process
