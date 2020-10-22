@@ -62,20 +62,20 @@ def packet_generator():
 
     time_begin = time.time()
 
+    print("Rule 1:", firewall_filter(rule_1))
+    print("Rule 2:", firewall_filter(rule_2)) # -- > show firewall rule here
+    print("Rule 3:", firewall_filter(rule_3))
+
     for n_packet in range(packet_want):
         """random packet from the pool"""
-        time.sleep(0.3) #beware error
+        time.sleep(0.4) #beware error
 
         # this is list of 1 packet without decision
         raw_data = generate_packet_in_list()
 
-        print("packet: ", raw_data) # show here
+        print("Packet gen: ", raw_data) # show here
 
-        #print("Filter check:", firewall_filter(rule_1))
-        #print("Filter check:", firewall_filter(rule_2)) # -- > show firewall rule here
-        #print("Filter check:", firewall_filter(rule_3))
-
-        print(packet_action(raw_data))
+        print("-> ", packet_action(raw_data))
 
         # packet_action() will decide this packet should Allow or Deny
         raw_data.insert(0, packet_action(raw_data)) # decision at list[0]
@@ -85,7 +85,7 @@ def packet_generator():
 
         # print("pre data: ", packet_data) # show here
 
-        print("........................................")
+        print(".................. G E N E R A T I N G ...................")
 
         # insert to big list of many packets
         full_data.append(packet_data)
@@ -93,16 +93,20 @@ def packet_generator():
         """Finish process of creating 1 packet"""
 
     """Export to CSV"""
-    print("Exporting CSV . . . . . . .")
+    print("Exporting", csv_file_text ,". . . . . . .")
     writing_csv_plain() # this file is plain text
+    print("Done!")
 
-    print("Exporting CSV . . . . . . .")
+    print("Exporting", csv_file_bin ,". . . . . . .")
     writing_csv_binary() # this file is binary for utility
+    print("Done!")
 
     time_finish = time.time()
-    time_duration = time_finish - time_start
+    time_duration = time_finish - time_begin
     print("Worked has finish: " + time_duration + " Seconds")
     print("Time per packet: " + time_duration/packet_want + " Seconds")
+
+    #-------------------------------------------------------------------#
 
 def generate_packet_in_list():
     """return [192.168.1.x, 192.168.2.x, port, protocol --> raw_data"""
@@ -140,7 +144,7 @@ def writing_csv_plain():
 
 def writing_csv_binary():
     """This Function write from full data text to CSV binary"""
-    
+
     convert_bin() # convert full_data to full_data_bin with binary
 
     with open(csv_file_bin, 'w', newline='') as myfile:
