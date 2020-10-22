@@ -69,6 +69,7 @@ def packet_generator():
     for n_packet in range(packet_want):
         """random packet from the pool"""
         time.sleep(0.4) #beware error
+        print(".................. G E N E R A T I N G ...................")
 
         # this is list of 1 packet without decision
         raw_data = generate_packet_in_list()
@@ -85,11 +86,9 @@ def packet_generator():
 
         # print("pre data: ", packet_data) # show here
 
-        print(".................. G E N E R A T I N G ...................")
-
         # insert to big list of many packets
         full_data.append(packet_data)
-
+        
         """Finish process of creating 1 packet"""
 
     """Export to CSV"""
@@ -103,8 +102,8 @@ def packet_generator():
 
     time_finish = time.time()
     time_duration = time_finish - time_begin
-    print("Worked has finish: " + time_duration + " Seconds")
-    print("Time per packet: " + time_duration/packet_want + " Seconds")
+    print("Worked has finish:", time_duration, "Seconds")
+    print("Time per packet:", time_duration/packet_want, "Seconds")
 
     #-------------------------------------------------------------------#
 
