@@ -24,17 +24,19 @@ csv_file_text = "%s.csv" % "Data_Text"
 
 csv_file_bin = "%s.csv" % "Data_Binary"
 
-csv_file_bin_split = "%s.csv" % "Data_Binary_Split"
+csv_file_bin_split = "%s.csv" % "Train"
+# if you use for train type % "Train"
+# if you use for test type % "Test"
 
 # ip of source address and destination address possible
-ip_pool = ["192.168.1", "172.160.2", "203.222.201","10.10.0.0"]
+ip_pool = ["192.168.1", "172.160.2", "203.222.201"]
 
 # mask is exception
 mask = '255.255.255.0'
 
 # port pool based on well known port (10)
-port_pool = ['21', '22' ,'23', '25', '53', '80']
-port_pool_notused = ['21', '22' , '23', '25', '53', '80', '110', '143', '161', '443']
+port_pool = ['21', '22' ,'23', '25', '53', '80', '110']
+# port_pool_notused = ['21', '22' , '23', '25', '53', '80', '110', '143', '161', '443']
 
 # add on what protocol of packet's port
 tcp_list = ['21', '22', '23', '25', '80']
@@ -94,16 +96,16 @@ def packet_generator():
         """ Finish process of creating 1 packet """
 
     """ Export to CSV """
-    # print("Exporting", csv_file_text ,". . . . . . .")
-    # writing_csv_plain() # this file is plain text
-    # print("Done!")
+    print("Exporting", csv_file_text ,". . . . . . .")
+    writing_csv_plain() # -------> this file is plain text
+    print("Done!")
 
-    # print("Exporting", csv_file_bin ,". . . . . . .")
-    # writing_csv_binary() # this file is binary for utility
-    # print("Done!")
+    print("Exporting", csv_file_bin ,". . . . . . .")
+    writing_csv_binary() # -------> this file is binary
+    print("Done!")
     
     print("Exporting", csv_file_bin_split ,". . . . . . .")
-    writing_csv_binary_split() # this file is binary for utility
+    writing_csv_binary_split() # -------> this file is binary for utility
     print("Done!")
 
     time_finish = time.time()
@@ -195,7 +197,7 @@ def writing_csv_binary_split():
     with open(csv_file_bin_split, 'w', newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
         
-        wr.writerow(["Action", "src1", "src2", "src3", "src4", "dst1", "dst2", "dst3", "dst4", "port", "port2"])
+        wr.writerow(["Action", "src1", "src2", "src3", "src4", "dst1", "dst2", "dst3", "dst4", "port", "protocol"])
         
         for i in range(packet_want):
             wr.writerow(full_data_bin_split[i]) # write
@@ -305,19 +307,15 @@ def info_to_binary(data, max_bin):
     # data is based on integer so we convert to INT
     data = int(data)
 
-    # check if data is Subnet or Boardcast Address
-    if data < 255 and data > 0:
+    # we do need to full fill of packet header size 8 16 32
+    zero_add = max_bin - len(str(bin(data))[2:])
 
-        # we do need to full fill of packet header size 8 16 32
-        zero_add = max_bin - len(str(bin(data))[2:])
+    # delete first 2 charactor '0b'
+    info_binary = str(bin(data))[2:]
 
-        # delete first 2 charactor '0b'
-        info_binary = str(bin(data))[2:]
+    binary = zero_front[zero_add] + info_binary
 
-        binary = zero_front[zero_add] + info_binary
+    return binary
 
-        return binary
-    else:
-        return "input data is not correct (it might be 0 or 255 or else)"
 
 packet_generator()

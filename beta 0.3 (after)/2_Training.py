@@ -12,7 +12,7 @@ Created on Tue Sep 16 09:57:31 2020
 # 1 insert local variable here
 
 # File Configuration
-csv_file_input = "Data_Binary_Split" # place the name of data here
+csv_file_input = "Train" # place the name of data here
 csv_file_use = "%s.csv" % csv_file_input
 
 # Model Configuration
@@ -33,6 +33,8 @@ data = pd.read_csv(csv_file_use)
 
 train_x = data.iloc[:,1:data.shape[1]].values
 train_y = data.iloc[:,0].values
+
+train_x = train_x.astype('float32')
 
 import keras
 from tensorflow.keras.models import Sequential
