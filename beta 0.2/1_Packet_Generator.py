@@ -34,7 +34,7 @@ mask = '255.255.255.0'
 
 # port pool based on well known port (10)
 port_pool = ['21', '22' ,'23', '25', '53', '80']
-port_pool_notused = ['21', '22' , '23', '25', '53', '80', '110', '143', '161', '443']
+# port_pool_notused = ['21', '22' , '23', '25', '53', '80', '110', '143', '161', '443']
 
 # add on what protocol of packet's port
 tcp_list = ['21', '22', '23', '25', '80']
@@ -50,9 +50,9 @@ zero_front = ["","0","00","000","0000","00000","000000",
                 "0000000","00000000","000000000","0000000000",
                 "00000000000"]
 
-import random
-import time
-import csv
+import random # random packet
+import time # count time
+import csv # export data
 
 # packet random generating
 
