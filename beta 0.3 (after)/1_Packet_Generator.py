@@ -17,7 +17,7 @@ rule_3 = 'allow 172.160.2.0 192.168.1.0 23'
 rule_4 = 'allow 203.222.201.0 172.160.2.0 53'
 
 # packet we want to generate
-packet_want = 40
+packet_want = 1000
 
 # name of files saved
 csv_file_text = "%s.csv" % "Data_Text"
@@ -27,7 +27,7 @@ csv_file_bin = "%s.csv" % "Data_Binary"
 csv_file_bin_split = "%s.csv" % "Data_Binary_Split"
 
 # ip of source address and destination address possible
-ip_pool = ["192.168.1", "172.160.2", "203.222.201"]
+ip_pool = ["192.168.1", "172.160.2", "203.222.201","10.10.0.0"]
 
 # mask is exception
 mask = '255.255.255.0'
@@ -94,13 +94,13 @@ def packet_generator():
         """ Finish process of creating 1 packet """
 
     """ Export to CSV """
-    print("Exporting", csv_file_text ,". . . . . . .")
-    writing_csv_plain() # this file is plain text
-    print("Done!")
+    # print("Exporting", csv_file_text ,". . . . . . .")
+    # writing_csv_plain() # this file is plain text
+    # print("Done!")
 
-    print("Exporting", csv_file_bin ,". . . . . . .")
-    writing_csv_binary() # this file is binary for utility
-    print("Done!")
+    # print("Exporting", csv_file_bin ,". . . . . . .")
+    # writing_csv_binary() # this file is binary for utility
+    # print("Done!")
     
     print("Exporting", csv_file_bin_split ,". . . . . . .")
     writing_csv_binary_split() # this file is binary for utility
@@ -145,7 +145,10 @@ def writing_csv_plain():
     """ This Function write from full data text to CSV text """
     with open(csv_file_text, 'w', newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-
+        
+        # the categorical of data
+        wr.writerow(["Action", "Source address", "Destination address", "Port", "Protocol"])
+        
         for i in range(packet_want):
             wr.writerow(full_data[i]) # write
 
@@ -156,6 +159,9 @@ def writing_csv_binary():
 
     with open(csv_file_bin, 'w', newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+        
+        # the categorical of data
+        wr.writerow(["Action", "Source address", "Destination address", "Port", "Protocol"])
 
         for i in range(packet_want):
             wr.writerow(full_data_bin[i]) # write
@@ -188,7 +194,9 @@ def writing_csv_binary_split():
     
     with open(csv_file_bin_split, 'w', newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-
+        
+        wr.writerow(["Action", "src1", "src2", "src3", "src4", "dst1", "dst2", "dst3", "dst4", "port", "port2"])
+        
         for i in range(packet_want):
             wr.writerow(full_data_bin_split[i]) # write
     
