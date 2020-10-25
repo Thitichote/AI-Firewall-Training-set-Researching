@@ -17,14 +17,14 @@ rule_3 = 'allow 172.160.2.0 192.168.1.0 23'
 rule_4 = 'allow 203.222.201.0 172.160.2.0 53'
 
 # packet we want to generate
-packet_want = 1000
+packet_want = 10000
 
 # name of files saved
 csv_file_text = "%s.csv" % "Data_Text"
 
 csv_file_bin = "%s.csv" % "Data_Binary"
 
-csv_file_bin_split = "%s.csv" % "Train"
+csv_file_bin_split = "%s.csv" % "Test"
 # if you use for train type % "Train"
 # if you use for test type % "Test"
 

@@ -16,10 +16,10 @@ csv_file_input = "Train" # place the name of data here
 csv_file_use = "%s.csv" % csv_file_input
 
 # Model Configuration
-node_layer_1 = 40
-node_layer_2 = 40
-node_layer_3 = 40
-epoch = 80
+node_layer_1 = 80
+node_layer_2 = 80
+node_layer_3 = 80
+epoch = 150
 
 name_model = "model_test" # place the name of model here
 name_model_use = "%s.h5" % name_model
