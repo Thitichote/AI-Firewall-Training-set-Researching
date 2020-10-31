@@ -12,7 +12,7 @@ Created on Tue Sep 16 09:57:31 2020
 # 1 insert local variable here
 
 # File Configuration
-csv_file_input = "Train" # place the name of data here
+csv_file_input = "Data_Binary" # place the name of data here
 csv_file_use = "%s.csv" % csv_file_input
 
 # Model Configuration

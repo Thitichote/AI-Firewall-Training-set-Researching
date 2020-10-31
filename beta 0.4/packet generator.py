@@ -43,11 +43,11 @@ rule_1 = ['allow', '192.168.1.0/24','192.168.20.1/24', '21', '6']
 
 # ------------------------------------ RATIO --------------------------
 """Assign Packet Number Wanted"""
-ruleN_1 = 100
+ruleN_1 = 1000
 # ruleN_2 =
 # ruleN_3 =
 # ruleN_4 =
-default = 100
+default = 1000
 
 import time
 
