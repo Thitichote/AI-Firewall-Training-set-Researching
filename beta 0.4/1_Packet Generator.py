@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Phase - 1 packet train
+
 Created on Fri Oct 30 15:41:42 2020
 
-@author: POP PC
+@author: POP PC (60070019) for TSIT Project 63
 """
 
 """Assign File Name here"""
@@ -29,7 +31,7 @@ for x in net4.hosts():
 ip_dst_all = ['192.168.20.1/24']
     
 """Assign Port here"""
-port_all = ['21','23','80']
+port_all = ['21','23']
 
 """Assign Protocol here"""
 protocol_all = ['6','17']
@@ -37,17 +39,17 @@ protocol_all = ['6','17']
 # ------------------------------------ RULES --------------------------
 """Assign Firewall Rule here"""
 rule_1 = ['allow', '192.168.1.0/24','192.168.20.1/24', '21', '6']
-# rule_2
+rule_2 = ['deny', '192.168.160.0/24', '192.168.20.1/24', '23', '6']
 # rule_3
 # rule_4
 
 # ------------------------------------ RATIO --------------------------
 """Assign Packet Number Wanted"""
 ruleN_1 = 1000
-# ruleN_2 =
+ruleN_2 = 1000
 # ruleN_3 =
 # ruleN_4 =
-default = 1000
+default = 2000
 
 import time
 
@@ -73,7 +75,7 @@ def rule_packet_possible(firewall_rule):
     net4 = ipaddress.ip_network(firewall_rule[1])
     
     for x in net4.hosts():
-        raw_data_packet.append([str(x), str(net4.netmask), str(ipaddress.IPv4Interface(ip_dst_all[0]).ip), 
+        raw_data_packet.append([str(x), '255.255.255.0', str(ipaddress.IPv4Interface(ip_dst_all[0]).ip), 
                                 str(ipaddress.IPv4Interface(ip_dst_all[0]).netmask), firewall_rule[3], firewall_rule[4]])
         
     return raw_data_packet
@@ -88,9 +90,15 @@ for i in range(ruleN_1):
     temp = [rule_1[0]] + random.choice(rule_1_possible)
     rule_1_quota.append(temp)
     
-#------------------------ all packet in rule -----------------------------------------------------
+rule_2_possible = rule_packet_possible(rule_2)
+rule_2_quota = [] # use this as output
+for i in range(ruleN_2):
+    temp = [rule_2[0]] + random.choice(rule_2_possible)
+    rule_2_quota.append(temp)
     
-all_rule_possible = rule_1_possible # + rule_2_possible + rule_3_possible
+#------------------------ merge all packet in rule to check default-----------------------------------------------------
+    
+all_rule_possible = rule_1_possible + rule_2_possible # + rule_3_possible
     
 #------------------------ raw train data set from universe ---------------------------------------
 default_quota = []
@@ -102,9 +110,9 @@ while True:
         temp = ["deny"] + rand
         default_quota.append(temp)
 
-#------------------------- merge list of all trainset --------------------------------------------
+#------------------------- merge list of all train set --------------------------------------------
 
-train_set_text = default_quota + rule_1_quota # + rule_2_quota
+train_set_text = default_quota + rule_1_quota + rule_2_quota # + rule_3_quota
 random.shuffle(train_set_text)
 
 #------------------------- binary convert --------------------------------------------------------
