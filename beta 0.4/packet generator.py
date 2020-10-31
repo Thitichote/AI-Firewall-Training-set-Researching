@@ -5,14 +5,19 @@ Created on Fri Oct 30 15:41:42 2020
 @author: POP PC
 """
 
+"""Assign File Name here"""
+
+import csv
+
+csv_file_text = "%s.csv" % "Data_Text"
+csv_file_bin = "%s.csv" % "Data_Binary"
+
 """Assign Variable here"""
 
 # the value number must %2 (or mod 2) = 0
-packet_want = 100
-
 import ipaddress
 
-## ------------------------------------ POOL --------------------------
+# ------------------------------------ POOL --------------------------
 """Assign IP soruce Address here"""
 ip_src_all = []
 net4 = ipaddress.ip_network('192.168.0.0/16')
@@ -21,50 +26,128 @@ for x in net4.hosts():
     ip_src_all.append(str(x))
 
 """Assign IP Destination Address here"""
-ip_dst_all = ['192.168.20.1']
+ip_dst_all = ['192.168.20.1/24']
     
 """Assign Port here"""
 port_all = ['21','23','80']
 
 """Assign Protocol here"""
-protocol_all = ['tcp','udp']
+protocol_all = ['6','17']
 
-## ------------------------------------ RULES --------------------------
+# ------------------------------------ RULES --------------------------
 """Assign Firewall Rule here"""
-rule_1 = ['allow', '192.168.1.0/28','192.168.20.1', '21', 'tcp']
+rule_1 = ['allow', '192.168.1.0/24','192.168.20.1/24', '21', '6']
+# rule_2
+# rule_3
+# rule_4
+
+# ------------------------------------ RATIO --------------------------
+"""Assign Packet Number Wanted"""
+ruleN_1 = 100
+# ruleN_2 =
+# ruleN_3 =
+# ruleN_4 =
+default = 100
+
+import time
 
 import random
 
-def generate_raw_packet():
+def random_packet(): # will fix it later
     
-    raw_data_packet = []
-    
-    for i in range(packet_want):
-        ip_src_random = random.choice(ip_src_all)
-        ip_dst_random = random.choice(ip_dst_all)
-        src_mask = str(net4.netmask)
-        dst_mask = '255.255.255.0'
-        port_random = random.choice(port_all)
-        protocol_random = random.choice(protocol_all)
-        raw_packet = [ip_src_random, src_mask, ip_dst_random, dst_mask, port_random, protocol_random]
-        raw_data_packet.append(raw_packet)
+    src_address = random.choice(ip_src_all)
+    src_mask = "255.255.255.0"
+    dst_address = str(ipaddress.IPv4Interface(ip_dst_all[0]).ip)
+    dst_mask = str(ipaddress.IPv4Interface(ip_dst_all[0]).netmask)
+    port = random.choice(port_all)
+    protocol = random.choice(protocol_all)
+        
+    raw_data_packet = [src_address, src_mask, dst_address, dst_mask, port, protocol]
     
     return raw_data_packet
     
-def generate_rule_packet():
+def rule_packet_possible(firewall_rule):
     
     raw_data_packet = []
-    net4 = ipaddress.ip_network(rule_1[1])
-    net4_mask = str(net4.netmask)
+    
+    net4 = ipaddress.ip_network(firewall_rule[1])
     
     for x in net4.hosts():
-        raw_data_packet.append([rule_1[0], str(x), net4_mask, rule_1[2], rule_1[3], rule_1[4]])
+        raw_data_packet.append([str(x), str(net4.netmask), str(ipaddress.IPv4Interface(ip_dst_all[0]).ip), 
+                                str(ipaddress.IPv4Interface(ip_dst_all[0]).netmask), firewall_rule[3], firewall_rule[4]])
         
     return raw_data_packet
 
+begin = time.time()
 
+#------------------------ raw train data set from rule -------------------------------------------
 
-i = generate_raw_packet()
-j = generate_rule_packet()
-         
+rule_1_possible = rule_packet_possible(rule_1)
+rule_1_quota = [] # use this as output
+for i in range(ruleN_1):
+    temp = [rule_1[0]] + random.choice(rule_1_possible)
+    rule_1_quota.append(temp)
+    
+#------------------------ all packet in rule -----------------------------------------------------
+    
+all_rule_possible = rule_1_possible # + rule_2_possible + rule_3_possible
+    
+#------------------------ raw train data set from universe ---------------------------------------
+default_quota = []
+while True:
+    rand =  random_packet()
+    if len(default_quota) == default:
+        break
+    elif rand not in all_rule_possible:
+        temp = ["deny"] + rand
+        default_quota.append(temp)
 
+#------------------------- merge list of all trainset --------------------------------------------
+
+train_set_text = default_quota + rule_1_quota # + rule_2_quota
+
+#------------------------- binary convert --------------------------------------------------------
+
+train_set_binary = []
+
+for train_packet in train_set_text:
+    binary_a_packet = []
+    if train_packet[0] == 'allow':
+        binary_a_packet.append('1')
+    else:
+        binary_a_packet.append('0')
+    for j in range(1, 5):
+        ip = train_packet[j]
+        list_octet = [bin(int(x)+256)[3:] for x in ip.split('.')]
+        binary_a_packet.append(list_octet[0])
+        binary_a_packet.append(list_octet[1])
+        binary_a_packet.append(list_octet[2])
+        binary_a_packet.append(list_octet[3])
+    binary_a_packet.append(bin(int(train_packet[5])+65536)[3:])
+    binary_a_packet.append(bin(int(train_packet[6])+256)[3:])
+    # train_packet[6]
+    train_set_binary.append(binary_a_packet)
+
+#-------------------------- csv write -------------------------------------------------------------
+    
+with open(csv_file_text, 'w', newline='') as myfile:
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    wr.writerow(["Action", "Source address", "Source Mask", "Destination address", "Destination Mask", "Port", "Protocol"])
+    
+    for i in train_set_text:
+        wr.writerow(i)
+    
+    
+with open(csv_file_bin, 'w', newline='') as myfile:
+    column = ["Act","src_a1","src_a2","src_a3","src_a4","src_m1","src_m2","src_m3","src_m4","dst_a1","dst_a2","dst_a3","dst_a4","dst_m1","dst_m2","dst_m3","dst_m4","port","protocol",]
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    wr.writerow(column)
+    
+    for i in train_set_binary:
+        wr.writerow(i)
+
+end = time.time()
+
+print("SUMMARY:\nPacket Created:", len(train_set_text), "packets\nTime used:", end-begin, "seconds") 
+
+i,j = [], []
