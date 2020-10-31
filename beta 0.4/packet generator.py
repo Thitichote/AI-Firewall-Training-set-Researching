@@ -105,6 +105,7 @@ while True:
 #------------------------- merge list of all trainset --------------------------------------------
 
 train_set_text = default_quota + rule_1_quota # + rule_2_quota
+random.shuffle(train_set_text)
 
 #------------------------- binary convert --------------------------------------------------------
 
@@ -129,7 +130,7 @@ for train_packet in train_set_text:
     train_set_binary.append(binary_a_packet)
 
 #-------------------------- csv write -------------------------------------------------------------
-    
+
 with open(csv_file_text, 'w', newline='') as myfile:
     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
     wr.writerow(["Action", "Source address", "Source Mask", "Destination address", "Destination Mask", "Port", "Protocol"])

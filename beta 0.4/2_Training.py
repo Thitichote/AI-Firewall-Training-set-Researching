@@ -39,7 +39,7 @@ train_x = train_x.astype('float32')
 import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-from keras.optimizers import rmsprop
+from keras.optimizers import adam
 
 model = Sequential()
 
@@ -47,7 +47,7 @@ model.add(Dense(node_layer_1, activation='relu', input_shape = (data.shape[1]-1,
 model.add(Dense(node_layer_2, activation='relu'))
 model.add(Dense(node_layer_3, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
-model.compile(optimizer="rmsprop", loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer="adam", loss='binary_crossentropy', metrics=['accuracy'])
 
 # Start count training time
 
