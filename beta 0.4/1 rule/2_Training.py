@@ -19,7 +19,7 @@ csv_file_use = "%s.csv" % csv_file_input
 node_layer_1 = 100
 node_layer_2 = 100
 node_layer_3 = 100
-epoch = 120
+epoch = 50
 
 name_model = "model_test" # place the name of model here
 name_model_use = "%s.h5" % name_model
@@ -39,7 +39,7 @@ train_x = train_x.astype('float32')
 import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-from keras.optimizers import adam
+from keras.optimizers import rmsprop
 
 model = Sequential()
 
@@ -47,7 +47,7 @@ model.add(Dense(node_layer_1, activation='relu', input_shape = (data.shape[1]-1,
 model.add(Dense(node_layer_2, activation='relu'))
 model.add(Dense(node_layer_3, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
-model.compile(optimizer="adam", loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer="rmsprop", loss='binary_crossentropy', metrics=['accuracy'])
 
 # Start count training time
 
