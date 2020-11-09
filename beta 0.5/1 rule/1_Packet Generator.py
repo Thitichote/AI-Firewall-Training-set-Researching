@@ -9,6 +9,10 @@ Created on Fri Oct 30 15:41:42 2020
 
 """Assign File Name here"""
 
+import time
+
+begin = time.time()
+
 import csv
 
 csv_file_text = "%s.csv" % "train_text"
@@ -28,37 +32,35 @@ for x in net4.hosts():
     ip_src_all.append(str(x))
 
 """Assign IP Destination Address here"""
-ip_dst_all = ['192.168.20.1/24']
+ip_dst_all = ['161.246.34.11/24']
     
 """Assign Port here"""
-port_all = ['21','80']
+port_all = ['22','80']
 
 """Assign Protocol here"""
 protocol_all = ['6','17']
 
 # ------------------------------------ RULES --------------------------
 """Assign Firewall Rule here"""
-rule_1 = ['allow', '192.168.1.0/24','192.168.20.1/24', '21', '6']
+rule_1 = ['allow', '192.168.0.0/16','161.246.34.11/24', '22', '6']
 # rule_2 = ['deny', '192.168.160.0/24', '192.168.20.1/24', '23', '6']
 # rule_3
 # rule_4
 
 # ------------------------------------ RATIO --------------------------
 """Assign Packet Number Wanted"""
-ruleN_1 = 960
+ruleN_1 = 10
 # ruleN_2 =
 # ruleN_3 =
 # ruleN_4 =
-default = 960
-
-import time
+default = 1
     
 import random
 
 def random_packet(): # will fix it later
     
     src_address = random.choice(ip_src_all)
-    src_mask = "255.255.255.0"
+    src_mask = "255.255.0.0"
     dst_address = str(ipaddress.IPv4Interface(ip_dst_all[0]).ip)
     dst_mask = str(ipaddress.IPv4Interface(ip_dst_all[0]).netmask)
     port = random.choice(port_all)
@@ -75,12 +77,10 @@ def rule_packet_possible(firewall_rule):
     net4 = ipaddress.ip_network(firewall_rule[1])
     
     for x in net4.hosts():
-        raw_data_packet.append([str(x), '255.255.255.0', str(ipaddress.IPv4Interface(ip_dst_all[0]).ip), 
+        raw_data_packet.append([str(x), '255.255.0.0', str(ipaddress.IPv4Interface(ip_dst_all[0]).ip), 
                                 str(ipaddress.IPv4Interface(ip_dst_all[0]).netmask), firewall_rule[3], firewall_rule[4]])
         
     return raw_data_packet
-
-begin = time.time()
 
 #------------------------ raw train data set from rule -------------------------------------------
 
@@ -106,8 +106,8 @@ while True:
 
 #------------------------- merge list of all train set --------------------------------------------
 
-data_set_text = default_quota + rule_1_quota
-train_set_text = default_quota + rule_1_quota # + rule_3_quota
+data_set_text = rule_1_quota # + default_quota
+train_set_text = rule_1_quota # + default_quota# + rule_3_quota
 random.shuffle(train_set_text)
 
 #------------------------- binary convert --------------------------------------------------------
