@@ -19,7 +19,7 @@ csv_file_use = "%s.csv" % csv_file_input
 node_layer_1 = 150
 node_layer_2 = 150
 node_layer_3 = 150
-epoch = 50
+epoch = 150
 
 name_model = "model_test" # place the name of model here
 name_model_use = "%s.h5" % name_model

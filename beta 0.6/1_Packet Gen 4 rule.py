@@ -49,10 +49,10 @@ rule_4 = ['deny', '192.168.0.0/16', '161.246.34.11/24', '22', '17']
 
 # ------------------------------------ RATIO --------------------------
 """Assign Packet Number Wanted"""
-ruleN_1 = 1000
-ruleN_2 = 1000
-ruleN_3 = 1000
-ruleN_4 = 1000
+ruleN_1 = 100
+ruleN_2 = 100
+ruleN_3 = 100
+ruleN_4 = 100
 default = 0
     
 import random
