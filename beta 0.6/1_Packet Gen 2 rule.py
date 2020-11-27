@@ -15,8 +15,8 @@ begin = time.time()
 
 import csv
 
-csv_file_text = "%s.csv" % "train_text"
-csv_file_bin = "%s.csv" % "train_binary"
+csv_file_text = "%s.csv" % "test_text"
+csv_file_bin = "%s.csv" % "test_binary"
 
 """Assign Variable here"""
 
@@ -49,11 +49,11 @@ rule_2 = ['deny', '192.168.0.0/16', '161.246.34.11/24', '80', '6']
 
 # ------------------------------------ RATIO --------------------------
 """Assign Packet Number Wanted"""
-ruleN_1 = 1964
-ruleN_2 = 1964
+ruleN_1 = 1000
+ruleN_2 = 1000
 # ruleN_3 =
 # ruleN_4 =
-default = 0
+default = 1000
     
 import random
 

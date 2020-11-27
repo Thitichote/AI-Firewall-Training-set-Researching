@@ -15,8 +15,8 @@ begin = time.time()
 
 import csv
 
-csv_file_text = "%s.csv" % "train_text"
-csv_file_bin = "%s.csv" % "train_binary"
+csv_file_text = "%s.csv" % "train_6_rule_text_default"
+csv_file_bin = "%s.csv" % "train_6_rule_bin_default"
 
 """Assign Variable here"""
 
@@ -43,17 +43,20 @@ protocol_all = ['6','17']
 # ------------------------------------ RULES --------------------------
 """Assign Firewall Rule here"""
 rule_1 = ['allow', '192.168.0.0/16','161.246.34.11/24', '80', '6']
-rule_2 = ['deny', '192.168.0.0/16', '161.246.34.11/24', '80', '17']
-rule_3 = ['deny', '192.168.0.0/16', '161.246.34.11/24', '22', '6']
-rule_4 = ['deny', '192.168.0.0/16', '161.246.34.11/24', '22', '17']
-
+rule_2 = ['deny', '192.168.128.0/18', '161.246.34.11/24', '22', '17']
+rule_3 = ['allow', '192.168.64.0/24', '161.246.34.11/24', '22', '6']
+rule_4 = ['deny', '192.168.64.0/24', '161.246.34.11/24', '80', '17']
+rule_5 = ['allow', '192.168.192.0/18','161.246.34.11/24', '22', '17']
+rule_6 = ['allow', '192.168.128.0/18','161.246.34.11/24', '22', '6']
 # ------------------------------------ RATIO --------------------------
 """Assign Packet Number Wanted"""
-ruleN_1 = 100
-ruleN_2 = 100
-ruleN_3 = 100
-ruleN_4 = 100
-default = 0
+ruleN_1 = 0
+ruleN_2 = 0
+ruleN_3 = 0
+ruleN_4 = 0
+ruleN_5 = 0
+ruleN_6 = 0
+default = 1000
     
 import random
 
@@ -107,10 +110,22 @@ rule_4_quota = [] # use this as output
 for i in range(ruleN_4):
     temp = [rule_4[0]] + random.choice(rule_4_possible)
     rule_4_quota.append(temp)
+
+rule_5_possible = rule_packet_possible(rule_5)
+rule_5_quota = [] # use this as output
+for i in range(ruleN_5):
+    temp = [rule_5[0]] + random.choice(rule_5_possible)
+    rule_5_quota.append(temp)
+
+rule_6_possible = rule_packet_possible(rule_6)
+rule_6_quota = [] # use this as output
+for i in range(ruleN_6):
+    temp = [rule_6[0]] + random.choice(rule_6_possible)
+    rule_6_quota.append(temp)
     
 #------------------------ merge all packet in rule to check default-----------------------------------------------------
     
-all_rule_possible = rule_1_possible + rule_2_possible + rule_3_possible + rule_4_possible
+all_rule_possible = rule_1_possible + rule_2_possible + rule_3_possible + rule_4_possible + rule_5_possible + rule_6_possible
     
 #------------------------ raw train data set from universe ---------------------------------------
 default_quota = []
@@ -124,8 +139,8 @@ while True:
 
 #------------------------- merge list of all train set --------------------------------------------
 
-data_set_text = rule_1_quota + rule_2_quota + rule_3_quota + rule_4_quota + default_quota
-train_set_text = rule_1_quota + rule_2_quota + rule_3_quota + rule_4_quota + default_quota
+data_set_text = rule_1_quota + rule_2_quota + rule_3_quota + rule_4_quota + rule_5_quota + rule_6_quota + default_quota
+train_set_text = rule_1_quota + rule_2_quota + rule_3_quota + rule_4_quota + rule_5_quota + rule_6_quota + default_quota
 random.shuffle(train_set_text)
 
 #------------------------- binary convert --------------------------------------------------------

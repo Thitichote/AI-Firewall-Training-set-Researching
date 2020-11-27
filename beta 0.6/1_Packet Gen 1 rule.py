@@ -15,8 +15,8 @@ begin = time.time()
 
 import csv
 
-csv_file_text = "%s.csv" % "train_text"
-csv_file_bin = "%s.csv" % "train_binary"
+csv_file_text = "%s.csv" % "test_6_rule_text_5"
+csv_file_bin = "%s.csv" % "test_6_rule_bin_5"
 
 """Assign Variable here"""
 
@@ -42,14 +42,14 @@ protocol_all = ['6','17']
 
 # ------------------------------------ RULES --------------------------
 """Assign Firewall Rule here"""
-rule_1 = ['allow', '192.168.0.0/16','161.246.34.11/24', '22', '6']
-# rule_2 = ['deny', '192.168.160.0/24', '192.168.20.1/24', '23', '6']
-# rule_3
-# rule_4
+rule_1 = ['allow', '192.168.192.0/18', '192.168.20.1/24', '22', '17']
+# rule_2 = ['deny', '192.168.160.0/24', '192.168.20.1/24', '22', '6']
+# rule_3 = ['allow', '192.168.0.0/16','161.246.34.11/24', '80', '6']
+# rule_4 = ['deny', '192.168.128.0/18', '192.168.20.1/24', '22', '17'] ['allow', '192.168.64.0/24', '192.168.20.1/24', '22', '6']
 
 # ------------------------------------ RATIO --------------------------
 """Assign Packet Number Wanted"""
-ruleN_1 = 1966
+ruleN_1 = 1000
 # ruleN_2 =
 # ruleN_3 =
 # ruleN_4 =
