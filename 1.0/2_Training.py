@@ -16,9 +16,9 @@ csv_file_input = "train_binary" # place the name of data here
 csv_file_use = "%s.csv" % csv_file_input
 
 # Model Configuration
-node_layer_1 = 150
-node_layer_2 = 150
-node_layer_3 = 150
+node_layer_1 = 100
+node_layer_2 = 100
+node_layer_3 = 100
 epoch = 50
 
 name_model = "model_test" # place the name of model here
