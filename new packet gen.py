@@ -16,14 +16,14 @@ pool_interfaceID = {'eth0': "00",
 
 pool_src_ip_default = '192.168.0.0/16'
 
-pool_src_port = {'ftp':'10101',
-                 'http':'1010000'
+pool_src_port = {'ftp':'0000000000010101',
+                 'http':'0000000001010000'
                  }
 
 pool_dst_ip_default = '168.160.0.0/16'
 
-pool_dst_port= {'ftp':'10101',
-                 'http':'1010000'
+pool_dst_port= {'ftp':'0000000000010101',
+                 'http':'0000000001010000'
                  }
 
 pool_protocol = {'tcp': '00000110',
@@ -110,7 +110,7 @@ def assign_direction(var):
 
 def assign_interfaceID(var):
     if var == 'any':
-        return random.choice(pool_interfaceID)
+        return random.choice(list(pool_interfaceID.values()))
     else:
         return pool_interfaceID[var]
     
@@ -160,17 +160,18 @@ def assign_total_length(var):
     if var == 'any':
         return random.choice(pool_total_length)
     else:
-        return var
+        return pool_total_length[var]
     
 def assign_ttl(var):
     if var == 'any':
         return random.choice(pool_ttl)
     else:
-        return var
+        return pool_ttl[var]
 
 for i in range(5):
 
     print(assign_direction(rule_1[1]))
+    print(assign_interfaceID(rule_1[2]))
     print(assign_src_ip(rule_1[3]))
     print(assign_src_ip(rule_1[4]))
     print(assign_src_port(rule_1[5]))
