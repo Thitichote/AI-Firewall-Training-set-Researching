@@ -8,10 +8,10 @@ import random
 pool_direction = {'in':"0",
                   'out':"1"
                   }
-pool_interfaceID = {'eth0': "00",
-                    'eth1': "01",
-                    'eth2': "10",
-                    'eth3': "01",
+pool_interfaceID = {'eth0': "0000",
+                    'eth1': "0001",
+                    'eth2': "0010",
+                    'eth3': "0001",
                     }
 
 pool_src_ip_default = '192.168.0.0/16'
@@ -32,7 +32,7 @@ pool_protocol = {'tcp': '00000110',
 
 pool_version = {'ipv4' : '0100'} # 4 bits
 
-pool_ihl = ['1111', '1111'] # 4 bits
+pool_ihl = {'20': '1111'} # 4 bits
 
 pool_dscp = {'AF11':'001010',
              'AF12':'001100',
@@ -85,7 +85,13 @@ pool_ttl = [] # 8 bits
 
 # version ihl ecn total ttl
 
-rule_1 = ['allow', 'ipv4', '1111', 'AF11', 'any', '60', 'eth0', 'in', 'xx', '192.168.0.0/16', 'any', '168.160.0.0/16', 'any', 'tcp']
+rule_1 = ['allow', 'ipv4', '20', 'AF11', 'any', 'xx', 'eth0', 'in', 'xx', '192.168.0.0/16', 'any', '168.160.0.0/16', 'any', 'tcp']
+
+def assign_action(var):
+    if var == 'allow':
+        return '1'
+    else:
+        return '0'
 
 def assign_src_ip(var):
     net4 = ipaddress.ip_network(var)
@@ -154,7 +160,8 @@ def assign_ihl(var):
     if var == 'any':
         return random.choice(pool_ihl)
     else:
-        return var
+        # return pool_ihl[var]
+        return "-"
     
 def assign_dscp(var):
     if var == 'any':
@@ -173,31 +180,31 @@ def assign_total_length(var):
         return random.choice(pool_total_length)
     else:
         # return pool_total_length[var]
-        return "xxxxxxxxx"
+        return "-"
     
 def assign_ttl(var):
     if var == 'any':
         return random.choice(pool_ttl)
     else:
         # return pool_ttl[var]
-        return 'xxxxxxxxx'
+        return '-'
 
 # main function
 number_gen = 10
 print("gen 20 ,type y1 or y2")
 for i in range(number_gen):
-    print("---------- packet number: ", i)
-    print("Action: " + rule_1[0])
-    print("Version: " + assign_version(rule_1[1]))
-    print("IHL: " + assign_ihl(rule_1[2]))
-    print("DSCP: " + assign_dscp(rule_1[3]))
-    print("ECN: " + assign_ecn(rule_1[4]))
-    print("Total Length: " + assign_total_length(rule_1[5]))
-    print("Interface: " + assign_interfaceID(rule_1[6]))
-    print("Direction: " + assign_direction(rule_1[7]))
-    print("Time to live: " + assign_ttl(rule_1[8]))
-    print("Source IP: " + assign_src_ip(rule_1[9]))
-    print("Source port: " + assign_src_port(rule_1[10]))
-    print("dest IP: " + assign_src_ip(rule_1[11]))
-    print("dest port: " + assign_dst_port(rule_1[12]))
-    print("protocol: " + assign_protocol(rule_1[13]))
+    print("---------- packet random from rule_1 number(s): ", i)
+    print("1 Action: " + assign_action(rule_1[0]))
+    print("2 Version: " + assign_version(rule_1[1]))
+    print("3 IHL: " + assign_ihl(rule_1[2]))
+    print("4 DSCP: " + assign_dscp(rule_1[3]))
+    print("5 ECN: " + assign_ecn(rule_1[4]))
+    print("6 Total Length: " + assign_total_length(rule_1[5]))
+    print("7 InterfaceID: " + assign_interfaceID(rule_1[6]))
+    print("8 Direction: " + assign_direction(rule_1[7]))
+    print("9 Time to live: " + assign_ttl(rule_1[8]))
+    print("10 Source IP: " + assign_src_ip(rule_1[9]))
+    print("11 Source port: " + assign_src_port(rule_1[10]))
+    print("12 dest IP: " + assign_src_ip(rule_1[11]))
+    print("13 dest port: " + assign_dst_port(rule_1[12]))
+    print("14 protocol: " + assign_protocol(rule_1[13]))
