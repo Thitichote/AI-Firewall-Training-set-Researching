@@ -3,6 +3,8 @@ import csv
 import ipaddress
 import random
 
+csv_file_bin = "%s.csv" % "train_set"
+
 """Assign pool possible"""
 
 pool_direction = {'in':"0",
@@ -32,7 +34,7 @@ pool_protocol = {'tcp': '00000110',
 
 pool_version = {'ipv4' : '0100'} # 4 bits
 
-pool_ihl = {'20': '1111'} # 4 bits
+pool_ihl = {'20': '0101'} # 4 bits
 
 pool_dscp = {'AF11':'001010',
              'AF12':'001100',
@@ -85,7 +87,7 @@ pool_ttl = [] # 8 bits
 
 # version ihl ecn total ttl
 
-rule_1 = ['allow', 'ipv4', '20', 'AF11', 'any', 'xx', 'eth0', 'in', 'xx', '192.168.0.0/16', 'any', '168.160.0.0/16', 'any', 'tcp']
+rule_1 = ['allow', 'ipv4', '20', 'AF11', 'any', 'xx', 'eth0', 'any', 'xx', '192.168.0.0/16', 'any', '168.160.0.0/16', 'any', 'tcp']
 
 def assign_action(var):
     if var == 'allow':
@@ -160,8 +162,8 @@ def assign_ihl(var):
     if var == 'any':
         return random.choice(pool_ihl)
     else:
-        # return pool_ihl[var]
-        return "-"
+        return pool_ihl[var]
+        # return "-"
     
 def assign_dscp(var):
     if var == 'any':
@@ -175,25 +177,21 @@ def assign_ecn(var):
     else:
         return pool_ecn[var]
     
-def assign_total_length(var):
+def assign_total_length(var): # Exclude
     if var == 'any':
         return random.choice(pool_total_length)
     else:
         # return pool_total_length[var]
-        return "-"
+        return '0000000000000000'
     
 def assign_ttl(var):
     if var == 'any':
         return random.choice(pool_ttl)
     else:
         # return pool_ttl[var]
-        return '-'
+        return '00000000'
 
-# main function
-number_gen = 10
-print("gen 20 ,type y1 or y2")
-for i in range(number_gen):
-    print("---------- packet random from rule_1 number(s): ", i)
+def test_text():
     print("1 Action: " + assign_action(rule_1[0]))
     print("2 Version: " + assign_version(rule_1[1]))
     print("3 IHL: " + assign_ihl(rule_1[2]))
@@ -208,3 +206,38 @@ for i in range(number_gen):
     print("12 dest IP: " + assign_src_ip(rule_1[11]))
     print("13 dest port: " + assign_dst_port(rule_1[12]))
     print("14 protocol: " + assign_protocol(rule_1[13]))
+    return 0
+
+# main function
+begin = time.time()
+
+train_set_all = []
+
+#------------------------------------------------------------------------------
+rule = rule_1 # important
+number = 300 # number want of rule
+for i in range(number):
+    if i % 10 == 0:
+        print('-',end='')
+    train_set_all.append([assign_action(rule[0]), assign_version(rule[1]), assign_ihl(rule[2]), assign_dscp(rule[3]), assign_ecn(rule[4]), 
+                assign_total_length(rule[5]), assign_interfaceID(rule[6]), assign_direction(rule[7]), assign_ttl(rule[8]), 
+                assign_src_ip(rule[9]), assign_src_port(rule[10]), assign_src_ip(rule[11]), assign_dst_port(rule[12]), 
+                assign_protocol(rule[13])])
+print(rule_1 + ' finish')
+
+#------------------------------------------------------------------------------
+
+with open(csv_file_bin, 'w', newline='') as myfile:
+    print('making csv file')
+    column = []
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    wr.writerow(column)
+    
+    for i in train_set_all:
+        wr.writerow(i)
+
+end = time.time()
+
+print("\nresult of generate packets")
+print("rule 1 = ", number, "packets")
+print("Time used =", end-begin, "Seconds")
