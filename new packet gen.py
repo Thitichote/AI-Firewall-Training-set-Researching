@@ -2,6 +2,7 @@ import time
 import csv
 import ipaddress
 import random
+import sys
 
 csv_file_bin = "%s.csv" % "train_set"
 
@@ -63,7 +64,9 @@ pool_dscp = {'AF11':'001010',
              'EF':'101110',
              }
 pool_ecn = ['00','01','10','11'] # 2 bits
+
 pool_total_length = [] # 16 bits
+
 pool_ttl = [] # 8 bits
 
 # rule Index about
@@ -175,38 +178,47 @@ def assign_ecn(var):
     if var == 'any':
         return random.choice(pool_ecn)
     else:
-        return pool_ecn[var]
+        return var
     
 def assign_total_length(var): # Exclude
-    if var == 'any':
-        return random.choice(pool_total_length)
-    else:
-        # return pool_total_length[var]
-        return '0000000000000000'
+    temp = ''
+    for i in range(16):
+        temp += random.choice(['0','1'])
+    return temp
     
 def assign_ttl(var):
-    if var == 'any':
-        return random.choice(pool_ttl)
-    else:
-        # return pool_ttl[var]
-        return '00000000'
+    temp = ''
+    for i in range(8):
+        temp += random.choice(['0','1'])
+    return temp
 
 def test_text():
-    print("1 Action: " + assign_action(rule_1[0]))
-    print("2 Version: " + assign_version(rule_1[1]))
-    print("3 IHL: " + assign_ihl(rule_1[2]))
-    print("4 DSCP: " + assign_dscp(rule_1[3]))
-    print("5 ECN: " + assign_ecn(rule_1[4]))
-    print("6 Total Length: " + assign_total_length(rule_1[5]))
-    print("7 InterfaceID: " + assign_interfaceID(rule_1[6]))
-    print("8 Direction: " + assign_direction(rule_1[7]))
-    print("9 Time to live: " + assign_ttl(rule_1[8]))
-    print("10 Source IP: " + assign_src_ip(rule_1[9]))
-    print("11 Source port: " + assign_src_port(rule_1[10]))
-    print("12 dest IP: " + assign_src_ip(rule_1[11]))
-    print("13 dest port: " + assign_dst_port(rule_1[12]))
-    print("14 protocol: " + assign_protocol(rule_1[13]))
+    print("1 Action: " + assign_action(rule_1[0])) # fix
+    print("2 Version: " + assign_version(rule_1[1])) # fix
+    print("3 IHL: " + assign_ihl(rule_1[2])) # fix
+    print("4 DSCP: " + assign_dscp(rule_1[3])) # not fix
+    print("5 ECN: " + assign_ecn(rule_1[4])) # not fix
+    print("6 Total Length: " + assign_total_length(rule_1[5])) # random
+    print("7 InterfaceID: " + assign_interfaceID(rule_1[6])) # not fix
+    print("8 Direction: " + assign_direction(rule_1[7])) # not fix
+    print("9 Time to live: " + assign_ttl(rule_1[8])) # random
+    print("10 Source IP: " + assign_src_ip(rule_1[9])) # depend
+    print("11 Source port: " + assign_src_port(rule_1[10])) # # not fix
+    print("12 dest IP: " + assign_dst_ip(rule_1[11])) # depend
+    print("13 dest port: " + assign_dst_port(rule_1[12])) # not fix
+    print("14 protocol: " + assign_protocol(rule_1[13])) # not fix
     return 0
+
+# test function
+
+# rule_1 = ['allow', 'ipv4', '20', 'AF11', 'any', 'xx', 'any', 'any', 'xx', '192.168.0.0/16', 'any', '168.160.0.0/16', 'any', 'any']
+
+# for i in range(10):
+#    print(assign_protocol(rule_1[13]))
+
+# sys.exit()
+
+# ------------------------------------
 
 # main function
 begin = time.time()
@@ -215,7 +227,7 @@ train_set_all = []
 
 #------------------------------------------------------------------------------
 rule = rule_1 # important
-number = 300 # number want of rule
+number = 10 # number want of rule
 for i in range(number):
     if i % 10 == 0:
         print('-',end='')
@@ -223,7 +235,7 @@ for i in range(number):
                 assign_total_length(rule[5]), assign_interfaceID(rule[6]), assign_direction(rule[7]), assign_ttl(rule[8]), 
                 assign_src_ip(rule[9]), assign_src_port(rule[10]), assign_src_ip(rule[11]), assign_dst_port(rule[12]), 
                 assign_protocol(rule[13])])
-print(rule_1 + ' finish')
+print(str(rule_1) + ' finish')
 
 #------------------------------------------------------------------------------
 
@@ -241,3 +253,5 @@ end = time.time()
 print("\nresult of generate packets")
 print("rule 1 = ", number, "packets")
 print("Time used =", end-begin, "Seconds")
+
+sys.exit()
