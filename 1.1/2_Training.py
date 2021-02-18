@@ -17,9 +17,9 @@ csv_file_use = "%s.csv" % csv_file_input
 
 # Model Configuration
 node_layer_1 = 150
-node_layer_2 = 155
-node_layer_3 = 155
-epoch = 50
+node_layer_2 = 150
+node_layer_3 = 150
+epoch = 150
 
 name_model = "model_test" # place the name of model here
 name_model_use = "%s.h5" % name_model
@@ -48,6 +48,8 @@ model.add(Dense(node_layer_2, activation='relu'))
 model.add(Dense(node_layer_3, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(optimizer="adam", loss='binary_crossentropy', metrics=['accuracy'])
+
+data2 = data.shape
 
 # Start count training time
 
