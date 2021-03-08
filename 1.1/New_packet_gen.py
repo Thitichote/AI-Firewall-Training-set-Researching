@@ -4,7 +4,7 @@ import ipaddress
 import random
 import sys
 
-csv_file_bin = "%s.csv" % "train_set"
+file_name = "%s.csv" % "train_set"
 
 """Assign pool possible"""
 
@@ -249,9 +249,9 @@ print('/n' + str(rule) + ' done..')
 
 
 #------------------------------------------------------------------------------#
-random.shuffle(train_set_all)
+random.shuffle(train_set_all, file_name)
 end = time.time()
-with open(csv_file_bin, 'w', newline='') as myfile:
+with open(file_name, 'w', newline='') as myfile:
     print('making csv file')
     column = ['Action','Version','IHL','DSCP','ECN','Total Length','InterfaceID','Direction','TTL','Source IP','Source Port','Destination IP','Destination Port','Protocol']
     
