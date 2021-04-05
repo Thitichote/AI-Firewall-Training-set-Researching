@@ -1,0 +1,4 @@
+model_name,evaluate_time,evaluate_accuracy,True_positive,True_negative,False_positive,False_positive
+model_1,0.6426026821136475,1.0,100,315,0,0
+model_2,0.5606541633605957,0.9927710843373494,97,315,0,3
+model_3,0.5116848945617676,0.9975903614457832,99,315,0,1

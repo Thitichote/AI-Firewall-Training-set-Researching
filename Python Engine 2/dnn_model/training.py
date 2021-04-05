@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as py
 import csv
+import time
+import shutil
 
 import keras
 from tensorflow.keras.models import Sequential
@@ -10,7 +12,9 @@ from keras.callbacks import EarlyStopping
 
 early_stopping_monitor = EarlyStopping(patience=10)
 
-def build_model(train_x, train_y, shape, number):
+def build_model(train_x, train_y, shape, csv_name, number):
+    
+    begin = time.time()
     
     node_layer_1 = 150
     node_layer_2 = 150
@@ -32,14 +36,24 @@ def build_model(train_x, train_y, shape, number):
 
     score, acc = model.evaluate(train_x, train_y)
     
-    model.save('model_' + str(number) + '.h5')
+    train_time = time.time() - begin
+    
+    model_name = 'model_' + str(number)
+    
+    model.save(model_name + '.h5')
+    
+    shutil.move(model_name + '.h5', "_model/" + model_name + '.h5')
+    
+    result(train_time, score, acc, csv_name, model_name)
     
 def training():
-    number_set = len(pd.read_csv('data_info.csv'))
+    number_set = len(pd.read_csv('_csv/data_info.csv'))
 
     for i in range(number_set):
         
-        data = pd.read_csv('train_' + str(i+1) + '.csv')
+        file_name = '_csv/train_set/train_' + str(i+1)
+        
+        data = pd.read_csv(file_name + '.csv')
         
         train_x = data.iloc[:,1:data.shape[1]].values
         train_y = data.iloc[:,0].values
@@ -48,6 +62,9 @@ def training():
 
         shape = data.shape[1] - 1
         
-        build_model(train_x, train_y, shape, i+1)
-
-training()
+        build_model(train_x, train_y, shape, file_name, i+1)
+        
+def result(train_time, score, acc, csv_name, model_name):
+    with open("_csv/result/training_result.csv", 'a', newline='') as f:
+        writer = csv.writer(f, delimiter=',')
+        writer.writerow([csv_name[15:], model_name, train_time, acc, score])
