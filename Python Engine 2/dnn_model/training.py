@@ -46,8 +46,11 @@ def build_model(train_x, train_y, shape, csv_name, number):
     
     result(train_time, score, acc, csv_name, model_name)
     
-def training():
+def train_model():
     number_set = len(pd.read_csv('_csv/data_info.csv'))
+    
+    if number_set == 0:
+        print('training: no train_set found')
 
     for i in range(number_set):
         
