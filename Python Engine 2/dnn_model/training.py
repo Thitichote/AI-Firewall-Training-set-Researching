@@ -58,6 +58,8 @@ def train_model():
         
         data = pd.read_csv(file_name + '.csv')
         
+        _debug1 = data
+        
         train_x = data.iloc[:,1:data.shape[1]].values
         train_y = data.iloc[:,0].values
         

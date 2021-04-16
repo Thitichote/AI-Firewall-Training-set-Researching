@@ -301,21 +301,6 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '10.60.11.3/32',
-      "SourcePort": 'any',
-      "DestinationIP": '161.246.38.0/24',
-      "DestinationPort": 'any',
-      "Protocol": 'any'
-    }
-    
-    rule21 = {
-      "Action": "allow",
-      "Version": "ipv4",
-      "IHL": 'any',
-      "DSCP": 'any',
-      "ECN": 'any',
-      "InterfaceID": 'any',
-      "Direction": 'any',
       "SourceIP": '10.10.0.0/16',
       "SourcePort": 'any',
       "DestinationIP": '161.246.38.0/24',
@@ -340,6 +325,6 @@ def assign_all_rule():
 
     rule_list = [rule1,rule2,rule3,rule4,rule5,rule6,rule7,rule8,rule9,rule10,
                  rule11,rule12,rule13,rule14,rule15,rule16,rule17,rule18,rule19,rule20,
-                 rule21,default]
+                 default]
     
     return rule_list

@@ -8,7 +8,7 @@ import pandas as pd
 def generate_template():
     header = []
     
-    for i in range(1,22):
+    for i in range(1,21):
         header.append('rule_' + str(i))
         
     header.append('default')

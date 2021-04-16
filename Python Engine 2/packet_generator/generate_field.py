@@ -3,6 +3,10 @@
 import random
 import ipaddress
 
+_debug1 = ''
+_debug2 = ''
+_debug3 = ''
+
 """Action Field"""
 # depend on rule
 # allow or deny
@@ -48,7 +52,8 @@ def assign_DSCP(var):
         'AF41':'100010',
         'AF42':'100100',
         'AF43':'100110',
-             
+        
+        'CS0':'000000',
         'CS1':'001000',
         'CS2':'010000',
         'CS3':'011000',
@@ -58,6 +63,8 @@ def assign_DSCP(var):
         'CS7':'111000',
              
         'EF':'101110',
+        'Voice-Admit':'101100',
+        'LE':'000001'
         }
     
     if var == 'any':
