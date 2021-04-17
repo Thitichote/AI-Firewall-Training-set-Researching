@@ -4,6 +4,8 @@ from packet_generator.rule_assign import *
 from packet_generator.generate_field import *
 import time
 
+
+
 def generate_packet():
 
     requirement = read_csv()
@@ -78,3 +80,7 @@ def generate_packet():
             print(file_name[:-4], len(train_set_before), generate_time)
             
     print('done..')
+    
+    # debug1 = train_set_after
+    
+    # return debug1

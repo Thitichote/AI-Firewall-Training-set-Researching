@@ -12,6 +12,7 @@ import pathlib
 import shutil
 
 path = str(pathlib.Path().absolute())
+debug1 = generate_packet()
 
 def build_template():
     # change name to 'data_info.csv' after and trainsetname as train_n (ex. train_1)
