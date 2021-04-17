@@ -4,7 +4,6 @@ from packet_generator.Function import *
 from dnn_model.training import *
 from evaluate.evaluate import *
 
-
 import tkinter as tk
 from tkinter import ttk
 import os
@@ -12,7 +11,7 @@ import pathlib
 import shutil
 
 path = str(pathlib.Path().absolute())
-debug1 = generate_packet()
+# debug1 = generate_packet()
 
 def build_template():
     # change name to 'data_info.csv' after and trainsetname as train_n (ex. train_1)
@@ -84,6 +83,8 @@ root = tk.Tk()
 
 text = ttk.Label(root,width=47, text = '>_')
 
+# ------------- Button Command ----------------------
+
 button_open_csv1 = ttk.Button(root, text='open template', width=20, command=open_template)
 button_open_csve = ttk.Button(root, text='open input table', width=20, command=open_data_info)
 button_open_csv2 = ttk.Button(root, text='open generate result', width=20, command=open_gen_result)
@@ -96,6 +97,8 @@ gen_table = ttk.Button(root, text='generate table', width=20, command=build_csv)
 gen_packet = ttk.Button(root, text='generate packets', width=20, command=gen)
 training = ttk.Button(root, text='training model', width=20, command=train)
 evaluate = ttk.Button(root, text='evaluate model', width=20, command=test)
+
+# ------------- Button place ----------------------
 
 button_open_csv1.place(x=200,y=50)
 button_open_csve.place(x=200,y=80)
@@ -112,14 +115,15 @@ evaluate.place(x=40,y=200)
 
 text.place(x=40, y=240)
 
+# ------------- Window ----------------------------
+
 root.geometry("370x270")
 
 root.title('AI-Firewall (research only)')
 
-photo = PhotoImage(file = 'firewall_icon.png')
-root.iconphoto(False, photo)
+root.iconbitmap('firewall_icon.ico')
 
-root.config(background = 'grey')
+# -------------------------------------------------
 
 windowWidth = root.winfo_reqwidth()
 windowHeight = root.winfo_reqheight()
