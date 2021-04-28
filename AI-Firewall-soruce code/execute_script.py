@@ -13,6 +13,7 @@ import shutil
 path = str(pathlib.Path().absolute())
 # debug1 = generate_packet()
 
+
 def build_template():
     # change name to 'data_info.csv' after and trainsetname as train_n (ex. train_1)
     generate_template()
@@ -117,11 +118,13 @@ text.place(x=40, y=240)
 
 # ------------- Window ----------------------------
 
-root.geometry("370x270")
+root.geometry("370x300")
 
 root.title('AI-Firewall (research only)')
 
 root.iconbitmap('firewall_icon.ico')
+
+root.configure(bg='grey')
 
 # -------------------------------------------------
 

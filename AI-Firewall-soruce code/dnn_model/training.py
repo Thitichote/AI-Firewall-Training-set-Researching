@@ -16,10 +16,10 @@ def build_model(train_x, train_y, shape, csv_name, number):
     
     begin = time.time()
     
-    node_layer_1 = 150
-    node_layer_2 = 150
-    node_layer_3 = 150
-    epoch = 10
+    node_layer_1 = 40
+    node_layer_2 = 40
+    node_layer_3 = 40
+    epoch = 30
     batch = 32
     
     model = Sequential()
