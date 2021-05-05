@@ -2,10 +2,6 @@
 
 # rule_assign.py
 
-# rule 1 - 20 for rule set 2
-# rule 25-30 for rule set 1
-# rule 1-36 for rule set 3
-
 def assign_all_rule():
 
     rule1 = {
@@ -382,7 +378,7 @@ def assign_all_rule():
       "Direction": 'any',
       "SourceIP": '192.168.0.0/16',
       "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
+      "DestinationIP": '161.246.38.11/24',
       "DestinationPort": '80',
       "Protocol": 'tcp'
     }
@@ -397,7 +393,7 @@ def assign_all_rule():
       "Direction": 'any',
       "SourceIP": '192.168.0.0/16',
       "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
+      "DestinationIP": '161.246.38.11/24',
       "DestinationPort": '80',
       "Protocol": 'udp'
     }
@@ -412,7 +408,7 @@ def assign_all_rule():
       "Direction": 'any',
       "SourceIP": '192.168.0.0/16',
       "SourcePort": '22',
-      "DestinationIP": '161.246.38.11/32',
+      "DestinationIP": '161.246.38.11/24',
       "DestinationPort": '22',
       "Protocol": 'tcp'
     }
@@ -427,7 +423,7 @@ def assign_all_rule():
       "Direction": 'any',
       "SourceIP": '192.168.0.0/16',
       "SourcePort": '22',
-      "DestinationIP": '161.246.38.11/32',
+      "DestinationIP": '161.246.38.11/24',
       "DestinationPort": '22',
       "Protocol": 'udp'
     }
@@ -442,7 +438,7 @@ def assign_all_rule():
       "Direction": 'any',
       "SourceIP": '100.100.0.0/16',
       "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
+      "DestinationIP": '161.246.38.11/24',
       "DestinationPort": '80',
       "Protocol": 'tcp'
     }
@@ -457,7 +453,7 @@ def assign_all_rule():
       "Direction": 'any',
       "SourceIP": '100.100.0.0/16',
       "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
+      "DestinationIP": '161.246.38.11/24',
       "DestinationPort": '80',
       "Protocol": 'udp'
     }
@@ -568,6 +564,96 @@ def assign_all_rule():
     }
     
 # --------------- reset for first 6 rule
+
+    rule1 = {
+      "Action": "allow",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": '192.168.0.0/16',
+      "SourcePort": '80',
+      "DestinationIP": '161.246.38.11/24',
+      "DestinationPort": '80',
+      "Protocol": 'tcp'
+    }
+    
+    rule2 = {
+      "Action": "deny",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": '192.168.0.0/16',
+      "SourcePort": '80',
+      "DestinationIP": '161.246.38.11/24',
+      "DestinationPort": '80',
+      "Protocol": 'udp'
+    }
+    
+    rule3 = {
+      "Action": "deny",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": '192.168.0.0/16',
+      "SourcePort": '22',
+      "DestinationIP": '161.246.38.11/24',
+      "DestinationPort": '22',
+      "Protocol": 'tcp'
+    }
+    
+    rule4 = {
+      "Action": "deny",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": '192.168.0.0/16',
+      "SourcePort": '22',
+      "DestinationIP": '161.246.38.11/24',
+      "DestinationPort": '22',
+      "Protocol": 'udp'
+    }
+    
+    rule5 = {
+      "Action": "allow",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": '100.100.0.0/16',
+      "SourcePort": '80',
+      "DestinationIP": '161.246.38.11/24',
+      "DestinationPort": '80',
+      "Protocol": 'tcp'
+    }
+    
+    rule6 = {
+      "Action": "deny",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": '100.100.0.0/16',
+      "SourcePort": '80',
+      "DestinationIP": '161.246.38.11/24',
+      "DestinationPort": '80',
+      "Protocol": 'udp'
+    }
 
     rule_list = [rule1,rule2,rule3,rule4,rule5,rule6,rule7,rule8,rule9,rule10,
                  rule11,rule12,rule13,rule14,rule15,rule16,rule17,rule18,rule19,rule20,

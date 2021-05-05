@@ -77,7 +77,7 @@ def generate_packet():
         
             wr.writerow([file_name[:-4], len(train_set_before), generate_time])
             
-            print(file_name[:-4], len(train_set_before), generate_time)
+            print(file_name[:-4]+ '.csv,', len(train_set_before), 'packets,', generate_time)
             
     print('done..')
     

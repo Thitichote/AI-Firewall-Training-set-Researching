@@ -2,10 +2,6 @@
 
 # rule_assign.py
 
-# rule 1 - 20 for rule set 2
-# rule 25-30 for rule set 1
-# rule 1-36 for rule set 3
-
 def assign_all_rule():
 
     rule1 = {
@@ -320,24 +316,24 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '161.246.0.0/24',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '192.168.5.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
     
     rule22 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '156.87.62.0/24',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '137.251.75.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
@@ -350,24 +346,24 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '198.175.30.0/24',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '216.40.100.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
     
     rule24 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '96.183.127.0/24',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '52.172.64.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
@@ -380,56 +376,56 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '192.168.0.0/16',
-      "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
-      "DestinationPort": '80',
-      "Protocol": 'tcp'
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
     }
     
     rule26 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '192.168.0.0/16',
-      "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
-      "DestinationPort": '80',
-      "Protocol": 'udp'
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
     }
     
     rule27 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '192.168.0.0/16',
-      "SourcePort": '22',
-      "DestinationIP": '161.246.38.11/32',
-      "DestinationPort": '22',
-      "Protocol": 'tcp'
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
     }
     
     rule28 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '192.168.0.0/16',
-      "SourcePort": '22',
-      "DestinationIP": '161.246.38.11/32',
-      "DestinationPort": '22',
-      "Protocol": 'udp'
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
     }
     
     rule29 = {
@@ -440,26 +436,26 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '100.100.0.0/16',
-      "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
-      "DestinationPort": '80',
-      "Protocol": 'tcp'
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
     }
     
     rule30 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '100.100.0.0/16',
-      "SourcePort": '80',
-      "DestinationIP": '161.246.38.11/32',
-      "DestinationPort": '80',
-      "Protocol": 'udp'
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
     }
     
     rule31 = {
@@ -470,24 +466,24 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '10.168.0.0/16',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '171.102.248.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
     
     rule32 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '10.168.0.0/16',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '171.102.249.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
@@ -500,26 +496,26 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '171.102.248.0/24',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '171.102.249.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
     
     rule34 = {
-      "Action": "deny",
+      "Action": "allow",
       "Version": "ipv4",
       "IHL": 'any',
       "DSCP": 'any',
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '192.168.1.0/24',
-      "SourcePort": '22',
-      "DestinationIP": '171.102.248.0/24',
-      "DestinationPort": '22',
-      "Protocol": 'tcp'
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
     }
     
     rule35 = {
@@ -530,9 +526,9 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '192.168.0.0/16',
+      "SourceIP": 'any',
       "SourcePort": 'any',
-      "DestinationIP": '171.102.249.0/24',
+      "DestinationIP": 'any',
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
@@ -545,12 +541,73 @@ def assign_all_rule():
       "ECN": 'any',
       "InterfaceID": 'any',
       "Direction": 'any',
-      "SourceIP": '216.40.100.0/24',
-      "SourcePort": '80',
-      "DestinationIP": '171.102.248.0/24',
-      "DestinationPort": '80',
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
       "Protocol": 'any'
-    }  
+    }
+    
+    rule37 = {
+      "Action": "allow",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
+    }
+    
+    rule38 = {
+      "Action": "allow",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
+    }
+    
+    rule39 = {
+      "Action": "allow",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
+    }
+    
+    rule40 = {
+      "Action": "allow",
+      "Version": "ipv4",
+      "IHL": 'any',
+      "DSCP": 'any',
+      "ECN": 'any',
+      "InterfaceID": 'any',
+      "Direction": 'any',
+      "SourceIP": 'any',
+      "SourcePort": 'any',
+      "DestinationIP": 'any',
+      "DestinationPort": 'any',
+      "Protocol": 'any'
+    }
+    
     
     default = {
       "Action": "deny",
@@ -566,13 +623,11 @@ def assign_all_rule():
       "DestinationPort": 'any',
       "Protocol": 'any'
     }
-    
-# --------------- reset for first 6 rule
 
     rule_list = [rule1,rule2,rule3,rule4,rule5,rule6,rule7,rule8,rule9,rule10,
                  rule11,rule12,rule13,rule14,rule15,rule16,rule17,rule18,rule19,rule20,
                  rule21,rule22,rule23,rule24,rule25,rule26,rule27,rule28,rule29,rule30,
-                 rule31,rule32,rule33,rule34,rule35,rule36,
+                 rule31,rule32,rule33,rule34,rule35,rule36,rule37,rule38,rule39,rule40,
                  default]
     
     return rule_list
