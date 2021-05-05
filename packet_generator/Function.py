@@ -15,8 +15,8 @@ def generate_packet():
     for req in requirement: # each file
     
         begin = time.time()
-        print(req[38])
-        file_name = req[38] + '.csv'
+        print(req[37])
+        file_name = req[37] + '.csv'
         
         count = 0
         train_set_before = []
