@@ -30,7 +30,9 @@ def build_model(train_x, train_y, shape, csv_name, number):
     model.add(Dense(1, activation='sigmoid'))
     model.compile(optimizer="Adam", loss='binary_crossentropy', metrics=['accuracy'])
     
-    model.fit(train_x, train_y, epochs = epoch, batch_size = batch)
+    print(model.fit(train_x, train_y, epochs = epoch, batch_size = batch))
+    
+    # model.fit(train_x, train_y, epochs = epoch, batch_size = batch)
     
     model.summary()
 
